@@ -53,7 +53,7 @@
 		},
 	"\/_assets\/js\/jquery.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/_assets\/js\/jquery.js",
 		"outputAbbreviatedPath": "\/_assets\/js\/min\/jquery-min.js",
@@ -64,7 +64,7 @@
 		},
 	"\/_assets\/js\/mySnippets.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/_assets\/js\/mySnippets.js",
 		"outputAbbreviatedPath": "\/_assets\/js\/min\/mySnippets-min.js",
@@ -75,7 +75,7 @@
 		},
 	"\/_assets\/js\/TimelineMax.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/_assets\/js\/TimelineMax.js",
 		"outputAbbreviatedPath": "\/_assets\/js\/min\/TimelineMax-min.js",
@@ -86,7 +86,7 @@
 		},
 	"\/_assets\/js\/TweenMax.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/_assets\/js\/TweenMax.js",
 		"outputAbbreviatedPath": "\/_assets\/js\/min\/TweenMax-min.js",
@@ -8092,15 +8092,6 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/index.html": {
-		"fileType": 8192,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/index.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
 	"\/js\/app.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -8128,6 +8119,32 @@
 	],
 "lastSavedByUser": "Johan Strömqvist",
 "manualImportLinks": {
+	"\/_assets\/_app.js": [
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/_assets\/js\/jquery.js",
+			"position": 0,
+			"type": 0
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/_assets\/js\/TweenMax.js",
+			"position": 1,
+			"type": 0
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/_assets\/js\/TimelineMax.js",
+			"position": 2,
+			"type": 0
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/_assets\/js\/mySnippets.js",
+			"position": 3,
+			"type": 0
+			}
+		]
 	},
 "projectAttributes": {
 	"bowerAbbreviatedPath": "",
