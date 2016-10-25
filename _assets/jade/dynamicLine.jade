@@ -1,0 +1,22 @@
+mixin dynamicLine(i)
+  .placeholder__randomiser__line(data-line= i)
+
+          //- Second position upper
+          .placeholder__randomiser__line__piece(data-piece="backUp")
+            span.placeholder__randomiser__line__piece__word.placeholder__randomiser__line__piece__word--offset-upper(data-container="backUp") SECOND
+            .placeholder__randomiser__line__piece__overlay.placeholder__randomiser__line__piece__overlay--second-upper(data-overlay="backUp")
+
+          //- First position upper
+          .placeholder__randomiser__line__piece(data-piece="frontUp")
+            span.placeholder__randomiser__line__piece__word.placeholder__randomiser__line__piece__word--offset-upper(data-container="frontUp") FIRST
+            .placeholder__randomiser__line__piece__overlay.placeholder__randomiser__line__piece__overlay--first-upper(data-overlay="frontUp")
+          
+          //- First position lower
+          .placeholder__randomiser__line__piece.placeholder__randomiser__line__piece--lower-position(data-piece="frontLow")
+            span.placeholder__randomiser__line__piece__word.placeholder__randomiser__line__piece__word--offset-lower(data-container="frontLow") FIRST
+            .placeholder__randomiser__line__piece__overlay.placeholder__randomiser__line__piece__overlay--first-lower(data-overlay="frontLow")
+          
+          //- Second position lower
+          .placeholder__randomiser__line__piece.placeholder__randomiser__line__piece--lower-position(data-piece="backLow")
+            span.placeholder__randomiser__line__piece__word.placeholder__randomiser__line__piece__word--offset-lower(data-container="backLow") SECOND
+            .placeholder__randomiser__line__piece__overlay.placeholder__randomiser__line__piece__overlay--second-lower(data-overlay="backLow")

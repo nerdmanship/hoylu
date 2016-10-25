@@ -1,4 +1,4 @@
-CSSPlugin.defaultTransformPerspective = 500;
+/*CSSPlugin.defaultTransformPerspective = 500;
 
 var c1 = select("#card1");
 var grad1 = select(".grad1");
@@ -24,4 +24,4 @@ tl.to(c3, 0.8, {rotationX: -90, ease: Power4.easeIn})
   .to(grad1, 1.7, {autoAlpha: 0, ease: Power3.easeOut}, 0.8)
 ;
 
-tl.play().timeScale(1);
+tl.play().timeScale(1);*/

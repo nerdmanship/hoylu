@@ -1,0 +1,23 @@
+include dynamicLine.jade
+// Placeholder module begin 
+.placeholder(data-module)
+    
+    //- Header
+    .placeholder__header
+      .placeholder__header__logo
+
+    //- Randomiser
+    .placeholder__randomiser
+      .placeholder__randomiser__line
+        span.placeholder__randomiser__line__piece__word.placeholder__randomiser__line__piece__word--static WE MAKE
+      
+      - var lines = 3
+      - for (var i = 0; i < lines; i++)
+        +dynamicLine(i)
+
+    //- Message
+    .placeholder__message
+      p.placeholder__message__para We wish we could be more specific right now.
+      p.placeholder__message__para Please #[a.placeholder__message__link(href="http://example.com") get in touch] and we’ll tell you more soon.      
+
+// Placeholder module end

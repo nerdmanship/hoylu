@@ -1,25 +1,145 @@
-// scss-lint:disable StringQuotes, PropertySortOrder, ColorKeyword, ColorVariable
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:800');
+// scss-lint:disable StringQuotes, PropertySortOrder, ColorKeyword, ColorVariable, SelectorFormat, ImportPath
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,700,800');
 
-svg {
-  overflow: visible;
+$bp-small: "(max-width: 639px)";
+$bp-big: "(min-width: 1024px)";
+
+$open-sans: 'Open Sans', sans-serif;
+$font-stack-copy: 300 18px $open-sans;
+$font-stack-copy-small: 300 13px $open-sans;
+$font-stack-link: 700 18px $open-sans;
+$font-stack-link-small: 700 13px $open-sans;
+$font-stack-headline: 800 55px $open-sans;
+$font-stack-headline-small: 800 27.5px $open-sans;
+
+$logo: url("../img/hoylu_logo.png");
+
+$dynamic-line-height: 50px;
+$dynamic-line-height-small: 35px;
+
+
+
+
+
+
+//-------------------------------------------------------- PLACEHOLDER
+
+.placeholder {
+  position: relative;
+  width: 600px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
 }
 
-.card {
-  position: absolute;
-  backface-visibility: hidden;
-  top: 100px;
-  left: 100px;
-  height: 30px;
-  width: 600px;
+.placeholder__header,
+.placeholder__randomiser,
+.placeholder__message { position: relative; }
 
-  font-family: 'Open Sans', sans-serif;
-  color: rgb(128, 190, 65);
-  font-size: 50px;
-  overflow: hidden;
+@media #{$bp-small} {
+  .placeholder {
+    width: 300px;
+  }
+}
+
+//-------------------------------------------------------- HEADER
+
+.placeholder__header {
+  padding: 40px 0;
+
+  .placeholder__header__logo {
+    height: 90px;
+    width: 90px;
+    background-image: $logo;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+  }
+}
+
+@media #{$bp-small} {
+  .placeholder__header {
+    .placeholder__header__logo {
+      height: 70px;
+      width: 70px;
+    }
+  }
+}
+
+
+//-------------------------------------------------------- RANDOMISER
+
+.placeholder__randomiser {
+  border-top: solid $black 1px;
+  border-bottom: solid $black 1px;
+  padding: 20px 0;
+}
+
+@media #{$bp-small} {
+  .placeholder__randomiser {
+    border-top: solid $black 1px;
+    border-bottom: solid $black 1px;
+    padding: 10px 0;
+  }
+}
+//-------------------------------------------------------- LINE
+
+.placeholder__randomiser__line {
+  position: relative;
+  height: $dynamic-line-height;
+  margin: 5px 0;
   text-align: center;
 }
-.overlay {
+
+@media #{$bp-small} {
+  .placeholder__randomiser__line {
+    height: $dynamic-line-height-small;
+  }
+}
+
+//-------------------------------------------------------- PIECES
+
+.placeholder__randomiser__line__piece {
+  position: absolute;
+  top: 0;
+  height: $dynamic-line-height / 2;
+  width: 100%;
+  background-color: white;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.placeholder__randomiser__line__piece--lower-position { top: $dynamic-line-height / 2; }
+
+@media #{$bp-small} {
+  .placeholder__randomiser__line__piece { height: $dynamic-line-height-small / 2; }
+  .placeholder__randomiser__line__piece--lower-position { top: $dynamic-line-height-small / 2; }
+}
+
+//-------------------------------------------------------- WORDS
+
+.placeholder__randomiser__line__piece__word {
+  position: relative;
+  font: $font-stack-headline;
+  color: $green;
+}
+
+.placeholder__randomiser__line__piece__word--static { color: $black; line-height: .8;}
+
+.placeholder__randomiser__line__piece__word--offset-upper { top: -15px; }
+
+.placeholder__randomiser__line__piece__word--offset-lower { top: -40px; }
+
+@media #{$bp-small} {
+  .placeholder__randomiser__line__piece__word { font: $font-stack-headline-small; }
+  .placeholder__randomiser__line__piece__word--static { line-height: 1.4;}
+  .placeholder__randomiser__line__piece__word--offset-upper { top: -2px; }
+  .placeholder__randomiser__line__piece__word--offset-lower { top: -19px; }
+}
+
+//-------------------------------------------------------- OVERLAYS
+
+.placeholder__randomiser__line__piece__overlay {
   backface-visibility: hidden;
   top: 0;
   position: absolute;
@@ -28,46 +148,42 @@ svg {
   opacity: 0;
 }
 
-.grad1 {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .1) 80%, rgba(0, 0, 0, .2) 100%);
+.placeholder__randomiser__line__piece__overlay--second-upper { background: $gradient1; }
+
+.placeholder__randomiser__line__piece__overlay--second-lower { background: $gradient2; }
+
+.placeholder__randomiser__line__piece__overlay--first-upper { background: $gradient3a, $gradient3b; }
+
+.placeholder__randomiser__line__piece__overlay--first-lower { background: $gradient4a, $gradient4b; }
+
+
+
+//-------------------------------------------------------- MESSAGE
+
+.placeholder__message {
+  margin-top: 30px;
+  text-align: center;
+  font: $font-stack-copy;
+  color: $copy-grey;
+
+  .placeholder__message__para { margin: 0; }
+
+  .placeholder__message__link {
+    font: $font-stack-link;
+    color: $link-blue;
+    text-decoration: none;
+  }
 }
 
-.grad2 {
-  background: linear-gradient(to bottom, rgba(0,0,0,.2) 0%, rgba(0,0,0,.1) 50%, rgba(0,0,0,.1) 100%);
+@media #{$bp-small} {
+  .placeholder__message {
+    margin-top: 30px;
+    font: $font-stack-copy-small;
+
+    .placeholder__message__link {
+      font: $font-stack-link-small;
+    }
+  }
 }
 
-.grad3 {
-  background: linear-gradient(to top, rgba(0,0,0,.3) 0%, rgba(0,0,0,.2) 50%, rgba(0,0,0,.2) 100%), radial-gradient(ellipse at bottom,  rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.5) 30%,rgba(0,0,0,0) 100%);
-}
 
-.grad4 {
-  background: linear-gradient(to bottom,  rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.1) 30%,rgba(0,0,0,0) 100%), radial-gradient(ellipse at top,  rgba(0,0,0,1) 0%,rgba(0,0,0,1) 50%,rgba(0,0,0,0) 100%);
-}
-
-.top {
-  position: relative;
-  top: -5px;
-}
-
-.bottom {
-  position: relative;
-  top: -35px;
-}
-
-#card1 {
-  background-color: white;
-}
-
-#card2 {
-  background-color: white;
-  top: 130px;
-}
-
-#card3 {
-  background-color: white;
-}
-
-#card4 {
-  background-color: white;
-  top: 130px;
-}
