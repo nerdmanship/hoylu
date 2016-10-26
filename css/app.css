@@ -416,7 +416,7 @@ textarea {
   .placeholder__header .placeholder__header__logo {
     height: 90px;
     width: 90px;
-    background-image: url("../img/hoylu_logo.png");
+    background-image: url("../img/hoylu_logo@2x.png");
     background-size: auto 100%;
     background-repeat: no-repeat;
     margin: 0 auto; }
@@ -518,18 +518,18 @@ textarea {
 .placeholder__message {
   margin-top: 30px;
   text-align: center;
-  font: 300 18px "Open Sans", sans-serif;
+  font: 300 1.125em "Open Sans", sans-serif;
   color: #687270; }
   .placeholder__message .placeholder__message__para {
     margin: 0; }
   .placeholder__message .placeholder__message__link {
-    font: 700 18px "Open Sans", sans-serif;
+    font: 700 1em "Open Sans", sans-serif;
     color: #00a3da;
     text-decoration: none; }
 
 @media (max-width: 639px) {
   .placeholder__message {
     margin-top: 30px;
-    font: 300 13px "Open Sans", sans-serif; }
+    font: 300 0.8125em "Open Sans", sans-serif; }
     .placeholder__message .placeholder__message__link {
-      font: 700 13px "Open Sans", sans-serif; } }
+      font: 700 1em "Open Sans", sans-serif; } }

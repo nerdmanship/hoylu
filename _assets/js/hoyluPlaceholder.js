@@ -15,7 +15,8 @@ var hoyluPlaceholder = (function() {
     ],
 
     // values
-    randInt = 4
+    interval = 4,
+    looping
     ;
 
 
@@ -26,14 +27,31 @@ var hoyluPlaceholder = (function() {
 
   // Build
   function build() {
+    for (var i = 0; i < $lines.length; i++) {
+      
+      frontWord = wordArrs[i][Math.floor(Math.random()*wordArrs[i].length)];
+      backWord = wordArrs[i][Math.floor(Math.random()*wordArrs[i].length)];
+      
+      if (frontWord === backWord) {
+        backWord = wordArrs[i][Math.floor(Math.random()*wordArrs[i].length)];
+      }
+
+      $($lines[i]).find("[data-container=frontUp]").html(frontWord);
+      $($lines[i]).find("[data-container=frontLow]").html(frontWord);
+
+      $($lines[i]).find("[data-container=backUp]").html(backWord);
+      $($lines[i]).find("[data-container=backLow]").html(backWord);
+    }
+
     TweenMax.to($module, 1, {autoAlpha: 1});
-    // Insert newWord
+    
     beginLoop();
+
   }
 
   // Begin loop
   function beginLoop() {
-    setInterval(randomise, randInt*1000);  
+    looping = setInterval(randomise, interval*1000);
   }
   
   // Randomise
@@ -50,13 +68,14 @@ var hoyluPlaceholder = (function() {
 
       // Make timeline
       var flipTl = new TimelineMax();
+      var delay = i*0.2;
 
       // Define timeline
-      flipTl.to($pieceFrontUp, 1, {rotationX: -90, ease: Power3.easeIn})
+      flipTl.to($pieceFrontUp, 1, {rotationX: -90, ease: Power3.easeIn, delay: delay})
             .to($pieceBackLow, 1, {rotationX: 0, ease: Power3.easeOut})
-            .call(duplicateWord, [i], this)
-            .call(resetStartPos, [i], this)
-            .call(newWordInBack, [i], this);
+            .call(duplicateWord, [i])
+            .call(resetStartPos, [i])
+            .call(newWordInBack, [i]);
     }
 
     // Duplicating back word to front
@@ -85,74 +104,46 @@ var hoyluPlaceholder = (function() {
       $line = $($lines[i]);
       $containerBackUp = $line.find("[data-container=backUp]");
       $containerBackLow = $line.find("[data-container=backLow]");
+      $containerFrontUp = $line.find("[data-container=frontUp]");
+      var nextWord;
+      var prevWord = $containerBackUp.html();
 
-      newWord = wordArrs[i][Math.floor(Math.random()*wordArrs[i].length)];
+      // Get new - duplicate safe - word
+      function getNewWord(){
+        var newWord = wordArrs[i][Math.floor(Math.random()*wordArrs[i].length)];        
 
-      $containerBackUp.html(newWord);
-      $containerBackLow.html(newWord);
+        if (newWord === prevWord) {
+          getNewWord();
+        } else {
+          nextWord = newWord;
+        }
+      }
+
+      getNewWord();
+
+      // Inject the word
+      $containerBackUp.html(nextWord);
+      $containerBackLow.html(nextWord);
     }
   }
   
-
   build();
+
   
-  return {
-    words: wordArrs,
-    lines: $lines,
-    build: build
-  };
+  // Pause if user leaves page
+  function killLoop() {
+    clearInterval(looping);
+    looping = 0;
+  }
+
+  function restartLoop() {
+    if (!looping){
+      beginLoop();
+    }
+  }
+
+  window.focus();
+  $(window).focus(restartLoop);
+  $(window).blur(killLoop);
 
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-  // Put a new word in the back container
-  function prepNext() {
-    var $back1 = $firstLine.find("div[data-piecePos=second-upper] > span");
-    var $back2 = $firstLine.find("div[data-piecePos=second-lower] > span");
-    var $front1 = $firstLine.find("div[data-piecePos=first-upper] > span");
-    var $front2 = $firstLine.find("div[data-piecePos=first-lower] > span");
-
-    var next = words1[Math.floor(Math.random()*words1.length)];
-    console.log(next);
-    
-    $back1.html(next);
-    $back2.html(next);
-  }
-  
-  // Play flip animation
-  function flip() {
-
-  }
-
-  // Put prev word in front container and reset positions
-  function finish() {
-    var $back1 = $firstLine.find("div[data-piecePos=second-upper] > span");
-    var $back2 = $firstLine.find("div[data-piecePos=second-lower] > span");
-    var $front1 = $firstLine.find("div[data-piecePos=first-upper] > span");
-    var $front2 = $firstLine.find("div[data-piecePos=first-lower] > span");
-
-
-    $front1.html($back1.html());
-    $front2.html($back1.html());
-    //TweenMax.set(pieces, {rotationX: start});
-  }*/

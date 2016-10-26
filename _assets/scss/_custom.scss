@@ -5,14 +5,14 @@ $bp-small: "(max-width: 639px)";
 $bp-big: "(min-width: 1024px)";
 
 $open-sans: 'Open Sans', sans-serif;
-$font-stack-copy: 300 18px $open-sans;
-$font-stack-copy-small: 300 13px $open-sans;
-$font-stack-link: 700 18px $open-sans;
-$font-stack-link-small: 700 13px $open-sans;
+$font-stack-copy: 300 1.125em $open-sans;
+$font-stack-copy-small: 300 0.8125em $open-sans;
+$font-stack-link: 700 1em $open-sans;
+$font-stack-link-small: 700 1em $open-sans;
 $font-stack-headline: 800 55px $open-sans;
 $font-stack-headline-small: 800 27.5px $open-sans;
 
-$logo: url("../img/hoylu_logo.png");
+$logo: url("../img/hoylu_logo@2x.png");
 
 $dynamic-line-height: 50px;
 $dynamic-line-height-small: 35px;
