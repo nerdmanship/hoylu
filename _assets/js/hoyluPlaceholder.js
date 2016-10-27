@@ -43,6 +43,15 @@ var hoyluPlaceholder = (function() {
       $($lines[i]).find("[data-container=backLow]").html(backWord);
     }
 
+    // Center the module
+    $module.css({
+        'position' : 'absolute',
+        'left' : '50%',
+        'top' : '50%',
+        'margin-left' : -$module.outerWidth()/2,
+        'margin-top' : -$module.outerHeight()/2
+    });
+    
     TweenMax.to($module, 1, {autoAlpha: 1});
     
     beginLoop();
@@ -148,4 +157,16 @@ var hoyluPlaceholder = (function() {
 
 })();
 
-// Im just making any change to feel some sense of control
+console.log('Hello ' + bowser.name + ' ' + bowser.version);
+
+if (bowser.chrome) {
+  console.log("pinging chrome");
+}
+
+if (bowser.msie) {
+  console.log("pinging msie");
+}
+
+if (bowser.msedge) {
+  console.log("pinging edge");
+}

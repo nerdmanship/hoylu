@@ -396,11 +396,8 @@ textarea {
   overflow: auto; }
 
 .placeholder {
-  position: relative;
+  position: absolute;
   width: 600px;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
   opacity: 0; }
 
 .placeholder__header,
@@ -412,7 +409,7 @@ textarea {
   .placeholder {
     width: 300px; } }
 .placeholder__header {
-  padding: 40px 0; }
+  padding-bottom: 40px; }
   .placeholder__header .placeholder__header__logo {
     height: 90px;
     width: 90px;
