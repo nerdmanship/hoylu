@@ -77,6 +77,7 @@ var hoyluPlaceholder = (function() {
       // Components to be animated
       $pieceBackLow = $line.find("[data-piece=backLow]");
       $pieceFrontUp = $line.find("[data-piece=frontUp]");
+      $pieceFrontLow = $line.find("[data-piece=frontLow]");
       $overlayBackUp = $line.find("[data-overlay=backUp]");
       $overlayBackLow = $line.find("[data-overlay=backLow]");
       $overlayFrontUp = $line.find("[data-overlay=frontUp]");
@@ -89,7 +90,12 @@ var hoyluPlaceholder = (function() {
         var delay = i*0.3;
   
         flipTl.to($pieceFrontUp, 1, {rotationX: -90, ease: Power3.easeIn, delay: delay})
-              .to($pieceBackLow, 1, {rotationX: 0, ease: Power3.easeOut})
+              .to($pieceFrontUp, 0, {autoAlpha:0}, "-=0.01")
+              //.to($pieceBackLow, 0, {autoAlpha:1})
+              .to($pieceFrontLow, 0, {top: "+=1"})
+              .to($pieceBackLow, 0, {top: "-=1"})
+              .to($pieceBackLow, 0.2, {rotationX: 0, ease: Linear.easeNone})
+              .to($pieceBackLow, 0, {top: "+=1"})
               .call(duplicateWord, [i], this, 2)
               .call(resetStartPos, [i], this, 2.1)
               .call(newWordInBack, [i], this, 2.2);
@@ -117,9 +123,11 @@ var hoyluPlaceholder = (function() {
       $line = $($lines[i]);
       $pieceBackLow = $line.find("[data-piece=backLow]");
       $pieceFrontUp = $line.find("[data-piece=frontUp]");
-
+      $pieceFrontLow = $line.find("[data-piece=frontLow]");
+      
+      TweenMax.set($pieceFrontLow, {top: "-=1"});
       TweenMax.set($pieceBackLow, { rotationX: 90, transformOrigin: "top center" });
-      TweenMax.set($pieceFrontUp, { rotationX: 0, transformOrigin: "bottom center" });  
+      TweenMax.set($pieceFrontUp, { rotationX: 0, autoAlpha:1, transformOrigin: "bottom center" });  
     }
 
     // Put new word in back
@@ -170,3 +178,21 @@ var hoyluPlaceholder = (function() {
   $(window).blur(killLoop);
 
 })();
+
+
+
+
+
+/*
+if (navigator.userAgent.indexOf('MSIE') != -1) {
+ var detectIEregexp = /MSIE (\d+\.\d+);/; 
+} else {
+ var detectIEregexp = /Trident.*rv[ :]*(\d+\.\d+)/;
+}
+ 
+
+if (detectIEregexp.test(navigator.userAgent)){
+  $("body").css({"background-color": "red"}); 
+}
+
+*/
