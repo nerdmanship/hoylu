@@ -7,9 +7,7 @@ var hoyluPlaceholder = (function() {
     // arrays
     $lines = $module.find("[data-line]"),    
     $piecesBackLow = $module.find("[data-piece=backLow]"),
-    $piecesBackUp = $module.find("[data-piece=backUp]"),
     $piecesFrontUp = $module.find("[data-piece=frontUp]"),
-    $piecesFrontLow = $module.find("[data-piece=frontLow]"),
     wordArrs = [
       ["INTERACTIVE", "DISRUPTIVE", "GROUNDBREAKING", "NOVEL"],
       ["COMMUNICATION", "RETAIL", "COLLABORATION", "VR", "IOE", "MIXED REALITY"],
@@ -22,15 +20,10 @@ var hoyluPlaceholder = (function() {
     ;
 
 
-  // Pre-build settings (only for modern with support)
-  if (Modernizr.csstransforms3d) {
-    CSSPlugin.defaultTransformPerspective = 500;
-    TweenMax.set($piecesBackLow, { rotationX: 90, transformOrigin: "top center" });
-    TweenMax.set($piecesFrontUp, { transformOrigin: "bottom center" });
-  } else {
-    $piecesFrontUp.hide();
-    $piecesFrontLow.hide();
-  }
+  // Pre-build settings
+  CSSPlugin.defaultTransformPerspective = 500;
+  TweenMax.set($piecesBackLow, { rotationX: 90, transformOrigin: "top center" });
+  TweenMax.set($piecesFrontUp, { transformOrigin: "bottom center" });
 
   // Build
   function build() {
@@ -50,17 +43,8 @@ var hoyluPlaceholder = (function() {
       $($lines[i]).find("[data-container=backLow]").html(backWord);
     }
 
-    // Center the module
-    $module.css({
-        'position' : 'absolute',
-        'left' : '50%',
-        'top' : '50%',
-        'margin-left' : -$module.outerWidth()/2,
-        'margin-top' : -$module.outerHeight()/2
-    });
-
     TweenMax.to($module, 1, {autoAlpha: 1});
-
+    
     beginLoop();
 
   }
@@ -81,24 +65,17 @@ var hoyluPlaceholder = (function() {
       $overlayBackLow = $line.find("[data-overlay=backLow]");
       $overlayFrontUp = $line.find("[data-overlay=frontUp]");
       $overlayFrontLow = $line.find("[data-overlay=frontLow]");
-      
-      // Define timeline for modern with support
-      if (Modernizr.csstransforms3d) {
-        // Make timeline
-        var flipTl = new TimelineMax();
-        var delay = i*0.3;
-  
-        flipTl.to($pieceFrontUp, 1, {rotationX: -90, ease: Power3.easeIn, delay: delay})
-              .to($pieceBackLow, 1, {rotationX: 0, ease: Power3.easeOut})
-              .call(duplicateWord, [i], this, 2)
-              .call(resetStartPos, [i], this, 2.1)
-              .call(newWordInBack, [i], this, 2.2);
-      } else {
-        // Just inject new words for old browsers
-        var newWord = wordArrs[i][Math.floor(Math.random()*wordArrs[i].length)];
-        $line.find("[data-container=backUp]").html(newWord);
-        $line.find("[data-container=backLow]").html(newWord);
-      }
+
+      // Make timeline
+      var flipTl = new TimelineMax();
+      var delay = i*0.2;
+
+      // Define timeline
+      flipTl.to($pieceFrontUp, 1, {rotationX: -90, ease: Power3.easeIn, delay: delay})
+            .to($pieceBackLow, 1, {rotationX: 0, ease: Power3.easeOut})
+            .call(duplicateWord, [i])
+            .call(resetStartPos, [i])
+            .call(newWordInBack, [i]);
     }
 
     // Duplicating back word to front

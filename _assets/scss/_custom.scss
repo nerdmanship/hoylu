@@ -20,11 +20,15 @@ $dynamic-line-height-small: 35px;
 
 
 
+
+
 //-------------------------------------------------------- PLACEHOLDER
 
 .placeholder {
-  position: absolute;
+  position: relative;
   width: 600px;
+  left: 50%;
+  transform: translateX(-50%);
   opacity: 0;
 }
 
@@ -41,7 +45,7 @@ $dynamic-line-height-small: 35px;
 //-------------------------------------------------------- HEADER
 
 .placeholder__header {
-  padding-bottom: 40px;
+  padding: 40px 0;
 
   .placeholder__header__logo {
     height: 90px;

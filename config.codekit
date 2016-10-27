@@ -10,7 +10,7 @@
 		"outputAbbreviatedPath": "\/js\/app.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 1,
-		"outputStyle": 1,
+		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
 	"\/_assets\/_app.scss": {
@@ -24,7 +24,7 @@
 		"outputAbbreviatedPath": "\/css\/app.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 1,
-		"outputStyle": 3,
+		"outputStyle": 0,
 		"shouldRunAutoprefixer": 1,
 		"shouldRunBless": 1,
 		"useLibsass": 0
@@ -108,7 +108,7 @@
 		},
 	"\/_assets\/js\/jquery.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/_assets\/js\/jquery.js",
 		"outputAbbreviatedPath": "\/_assets\/js\/min\/jquery-min.js",
@@ -119,7 +119,7 @@
 		},
 	"\/_assets\/js\/mySnippets.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/_assets\/js\/mySnippets.js",
 		"outputAbbreviatedPath": "\/_assets\/js\/min\/mySnippets-min.js",
@@ -130,7 +130,7 @@
 		},
 	"\/_assets\/js\/TimelineMax.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/_assets\/js\/TimelineMax.js",
 		"outputAbbreviatedPath": "\/_assets\/js\/min\/TimelineMax-min.js",
@@ -141,7 +141,7 @@
 		},
 	"\/_assets\/js\/TweenMax.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/_assets\/js\/TweenMax.js",
 		"outputAbbreviatedPath": "\/_assets\/js\/min\/TweenMax-min.js",
@@ -8224,8 +8224,32 @@
 	"\/_assets\/_app.js": [
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/_assets\/js\/hoyluPlaceholder.js",
+			"linkedFileAbbreviatedPath": "\/_assets\/js\/jquery.js",
 			"position": 0,
+			"type": 0
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/_assets\/js\/TweenMax.js",
+			"position": 1,
+			"type": 0
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/_assets\/js\/TimelineMax.js",
+			"position": 2,
+			"type": 0
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/_assets\/js\/mySnippets.js",
+			"position": 3,
+			"type": 0
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/_assets\/js\/hoyluPlaceholder.js",
+			"position": 4,
 			"type": 0
 			}
 		]
