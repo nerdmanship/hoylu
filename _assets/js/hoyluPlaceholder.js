@@ -51,90 +51,150 @@ var hoyluPlaceholder = (function() {
         'margin-left' : -$module.outerWidth()/2,
         'margin-top' : -$module.outerHeight()/2
     });
-    
+
     TweenMax.to($module, 1, {autoAlpha: 1});
     
     beginLoop();
 
   }
 
+
   // Begin loop
   function beginLoop() {
-    looping = setInterval(randomise, interval*1000);
+    if (bowser.firefox || bowser.msedge) {
+      looping = setInterval(randomiseNoTransition, interval*1000);
+    } else {
+      looping = setInterval(randomise, interval*1000);
+    }
+    
   }
   
-  // Randomise
+
+  // Randomise WITH transition for modern browsers with support
   function randomise() {
+    
+    $("#box").html(bowser.name + ' ' + bowser.version + " and this is vanilla");
+
     for (var i = 0; i < $lines.length; i++) {
       $line = $($lines[i]);
-      // Components to be animated
-      $pieceBackLow = $line.find("[data-piece=backLow]");
       $pieceFrontUp = $line.find("[data-piece=frontUp]");
-      $overlayBackUp = $line.find("[data-overlay=backUp]");
-      $overlayBackLow = $line.find("[data-overlay=backLow]");
-      $overlayFrontUp = $line.find("[data-overlay=frontUp]");
-      $overlayFrontLow = $line.find("[data-overlay=frontLow]");
+      $pieceBackLow = $line.find("[data-piece=backLow]");
 
       // Make timeline
       var flipTl = new TimelineMax();
       var delay = i*0.2;
-
+      
       // Define timeline
       flipTl.to($pieceFrontUp, 1, {rotationX: -90, ease: Power3.easeIn, delay: delay})
             .to($pieceBackLow, 1, {rotationX: 0, ease: Power3.easeOut})
-            .call(duplicateWord, [i])
-            .call(resetStartPos, [i])
-            .call(newWordInBack, [i]);
+            .call(copyWord, [i], this, 2.1)
+            .call(resetStartPos, [i], this, 2.2)
+            .call(newWordInBack, [i], this, 2.3)
+            ;
     }
+  }
 
-    // Duplicating back word to front
-    function duplicateWord(i) {
+
+  // Randomise WITHOUT transition for modern browsers with no support
+  function randomiseNoTransition() {
+    $("#box").html(bowser.name + ' ' + bowser.version + " and this is without transitions");
+    
+    for (var i = 0; i < $lines.length; i++) {
+      
       $line = $($lines[i]);
-      $containerBackUp = $line.find("[data-container=backUp]");
+      $pieceBackUp = $line.find("[data-piece=backUp]");
+      $pieceBackLow = $line.find("[data-piece=backLow]");
       $containerFrontUp = $line.find("[data-container=frontUp]");
       $containerFrontLow = $line.find("[data-container=frontLow]");
 
-      $containerFrontUp.html($containerBackUp.html());
-      $containerFrontLow.html($containerBackUp.html());
-    }
+      $pieceBackUp.hide();
+      $pieceBackLow.hide();
 
-    // Resetting start positions
-    function resetStartPos(i) {
-      $line = $($lines[i]);
-      $pieceBackLow = $line.find("[data-piece=backLow]");
-      $pieceFrontUp = $line.find("[data-piece=frontUp]");
+      nextWord = updateWord(i, $containerFrontUp);
 
-      TweenMax.set($pieceBackLow, { rotationX: 90, transformOrigin: "top center" });
-      TweenMax.set($pieceFrontUp, { rotationX: 0, transformOrigin: "bottom center" });  
-    }
-
-    // Put new word in back
-    function newWordInBack(i) {
-      $line = $($lines[i]);
-      $containerBackUp = $line.find("[data-container=backUp]");
-      $containerBackLow = $line.find("[data-container=backLow]");
-      $containerFrontUp = $line.find("[data-container=frontUp]");
-      var nextWord;
-      var prevWord = $containerBackUp.html();
-
-      // Get new - duplicate safe - word
-      function getNewWord(){
-        var newWord = wordArrs[i][Math.floor(Math.random()*wordArrs[i].length)];        
-
-        if (newWord === prevWord) {
-          getNewWord();
-        } else {
-          nextWord = newWord;
-        }
-      }
-
-      getNewWord();
-
-      // Inject the word
-      $containerBackUp.html(nextWord);
-      $containerBackLow.html(nextWord);
+      $containerFrontUp.html(nextWord);
+      $containerFrontLow.html(nextWord);
     }
   }
+
+  // Returns a new word that is not duplicate of word in container
+  function updateWord(i, container) {
+      
+      var prevWord = container.html();
+      var newWord = getNewWord(i);
+
+      // Check if new word and previous word are duplicates
+      if (!isDuplicate(newWord, prevWord)) { // If not, return new word
+        return newWord;
+      } else { // If duplicate, re-run function
+        return updateWord(i, container);
+      }
+
+  }
+
+  // Copy word from back container into the front
+  function copyWord(i) {
+    $line = $($lines[i]);
+    $containerBackUp = $line.find("[data-container=backUp]");
+    $containerFrontUp = $line.find("[data-container=frontUp]");
+    $containerFrontLow = $line.find("[data-container=frontLow]");
+
+    $containerFrontUp.html( $containerBackUp.html() );
+    $containerFrontLow.html( $containerBackUp.html() );
+  }
+
+
+  // Resetting start positions
+  function resetStartPos(i) {
+    $line = $($lines[i]);
+    $pieceBackLow = $line.find("[data-piece=backLow]");
+    $pieceFrontUp = $line.find("[data-piece=frontUp]");
+
+    TweenMax.set($pieceBackLow, { rotationX: 90, transformOrigin: "top center" });
+    TweenMax.set($pieceFrontUp, { rotationX: 0, transformOrigin: "bottom center" });  
+  }
+
+
+  function getNewWord(i) {
+    newWord = wordArrs[i][Math.floor(Math.random()*wordArrs[i].length)];
+    return newWord;
+  }
+
+
+  function isDuplicate(newWord, prevWord) {
+    return newWord === prevWord;
+  }
+
+
+  // Put new word in back containers
+  function newWordInBack(i) {
+    $line = $($lines[i]);
+    $containerBackUp = $line.find("[data-container=backUp]");
+    $containerBackLow = $line.find("[data-container=backLow]");
+    $containerFrontUp = $line.find("[data-container=frontUp]");
+
+    // We're gonna assign the next word and push it into the back containers
+    var nextWord;
+
+    // Record previous word, whatever is in the back container
+    var prevWord = $containerBackUp.html();
+    
+    // Get a new random word
+    var newWord = getNewWord(i);
+
+    // Check if new word and previous word are duplicates
+    if (!isDuplicate(newWord, prevWord)) { // If not, update next word and move on
+      nextWord = newWord;
+    } else { // If so, re-run function and return from this one
+      newWordInBack(i);
+      return;
+    }
+
+    // Inject the next word in back containers
+    $containerBackUp.html(nextWord);
+    $containerBackLow.html(nextWord);
+  }
+
   
   build();
 
@@ -157,16 +217,15 @@ var hoyluPlaceholder = (function() {
 
 })();
 
-console.log('Hello ' + bowser.name + ' ' + bowser.version);
 
-if (bowser.chrome) {
-  console.log("pinging chrome");
-}
+/*
+    // Get new - duplicate safe - word
+    function getNewWord(){
+      var newWord = wordArrs[i][Math.floor(Math.random()*wordArrs[i].length)];
 
-if (bowser.msie) {
-  console.log("pinging msie");
-}
-
-if (bowser.msedge) {
-  console.log("pinging edge");
-}
+      if (newWord === prevWord) {
+        getNewWord();
+      } else {
+        nextWord = newWord;
+      }
+    }*/

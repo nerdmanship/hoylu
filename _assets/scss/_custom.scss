@@ -18,7 +18,12 @@ $dynamic-line-height: 50px;
 $dynamic-line-height-small: 35px;
 
 
-
+#box {
+  position: absolute;
+  background-color: #ccc;
+  width: 500px;
+  height: 100px;
+}
 
 //-------------------------------------------------------- PLACEHOLDER
 

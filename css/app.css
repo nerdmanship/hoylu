@@ -395,6 +395,12 @@ optgroup {
 textarea {
   overflow: auto; }
 
+#box {
+  position: absolute;
+  background-color: #ccc;
+  width: 500px;
+  height: 100px; }
+
 .placeholder {
   position: absolute;
   width: 600px;
