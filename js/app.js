@@ -636,6 +636,11 @@ var hoyluPlaceholder = (function() {
       $($lines[i]).find("[data-container=backLow]").html(backWord);
     }
 
+  // MSIE8 fallback
+  if (bowser.msie && (bowser.version == "8.0")) {
+    MSIE8Fallback();
+  }
+
 
 
   // Reveal and start loop
@@ -700,26 +705,32 @@ var hoyluPlaceholder = (function() {
 
   // Randomise WITHOUT transition for modern browsers with no support
   function randomiseNoTransition() {
-    
-    for (var i = 0; i < $lines.length; i++) {
-      
-      $line = $($lines[i]);
-      $pieceBackUp = $line.find("[data-piece=backUp]");
-      $pieceBackLow = $line.find("[data-piece=backLow]");
-      $containerFrontUp = $line.find("[data-container=frontUp]");
-      $containerFrontLow = $line.find("[data-container=frontLow]");
+    var i = 0, iterations = $lines.length;
+    function delayLoop() {
+        $line = $($lines[i]);
+        $pieceBackUp = $line.find("[data-piece=backUp]");
+        $pieceBackLow = $line.find("[data-piece=backLow]");
+        $containerFrontUp = $line.find("[data-container=frontUp]");
+        $containerFrontLow = $line.find("[data-container=frontLow]");
 
-      // Hide obsolete containers
-      $pieceBackUp.hide();
-      $pieceBackLow.hide();
+        // Hide obsolete containers
+        $pieceBackUp.hide();
+        $pieceBackLow.hide();
 
-      // Get a new duplicate safe word
-      nextWord = updateWord(i, $containerFrontUp);
+        // Get a new duplicate safe word
+        nextWord = updateWord(i, $containerFrontUp);
 
-      // Update the containers
-      $containerFrontUp.html(nextWord);
-      $containerFrontLow.html(nextWord);
+        // Update the containers
+        $containerFrontUp.html(nextWord);
+        $containerFrontLow.html(nextWord);
+        
+        // add and callback self
+        i++;
+        if( i < iterations ){
+            setTimeout( delayLoop, 100 );
+        }
     }
+    delayLoop();
   }
 
 
@@ -801,7 +812,38 @@ var hoyluPlaceholder = (function() {
 
 // End of functions concerning ALL randomising
 
+  
+  // MSIE8 Fallback
+  function MSIE8Fallback() {
 
+    // Grab the logo
+    var logo = document.querySelector("[data-logo]");
+
+    // Remove bg image
+    logo.style.backgroundImage = "none";
+
+    // Inject image tag instead
+    innerHTML = "<img src =  ></img>";
+    var img = document.createElement("img");
+    img.src = "../img/hoylu_logo@2x.png";
+    img.style.width = "90px";
+    logo.appendChild(img);
+    
+    // Grab the lines and pieces
+    var lines = document.querySelectorAll("[data-line]");
+    var pieces = document.querySelectorAll("[data-piece=backLow]");
+
+    // Hide all backlows and inject words in containers
+    for (var j = 0; j < lines.length; j++) {
+      // Hide backLow pieces
+      pieces[j].style.display = "none";
+
+      // Inject unique word per line
+      for (var k = 0; k < pieces.length; k++) {
+        lines[j].querySelectorAll("[data-container]")[k].innerHTML = wordArrs[j][0];  
+      }
+    }
+  }
   
   
 
@@ -821,6 +863,10 @@ var hoyluPlaceholder = (function() {
   window.focus();
   $(window).focus(restartLoop);
   $(window).blur(killLoop);
+
+  return {
+    msie: MSIE8Fallback
+  };
 
 })();
 
